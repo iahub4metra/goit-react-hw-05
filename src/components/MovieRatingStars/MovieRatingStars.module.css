@@ -1,0 +1,12 @@
+.ratingContainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+.filledStar {
+    color: gold;
+}
+
+.emptyStar {
+    color: lightgray;
+}
