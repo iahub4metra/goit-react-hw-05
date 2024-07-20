@@ -9,28 +9,16 @@ import { BackLink } from "../../components/BackLink/BackLink.jsx";
 const MovieRatingStars = lazy(() => import('../../components/MovieRatingStars/MovieRatingStars.jsx'))
 
 
-
-
-const MovieDetailsPage = ({ movies }) => {
-
-    // const getMovieById = (movieId) => {
-    //     return movies.find((movie)=> movie.id.toString() === movieId)
-    // }
+const MovieDetailsPage = () => {
     const location = useLocation()
-    const { movieId } = useParams()
-    //const movie = getMovieById(movieId, moviesFromState || movies);
-    const moviesFromState = location.state?.movies
+    const {movieId} = useParams()
     const [imageUrl, setImageUrl] = useState('')
     const [genres, setGenres] = useState([])
-    
-    const getMovieById = (movieId, movies) => {
-        return movies.find((movie) => movie.id.toString() === movieId);
-    }
+    const { movie, from } = location.state || {};
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get('query');
 
-    const movie = getMovieById(movieId, moviesFromState);
-
-
-    const backLinkHref = location.state ?? '/';
+    const backLinkHref = query ? `/movies?query=${query}` : from;
     const getImageUrl = async () => {
         try {
             const data = await configuration();
@@ -43,34 +31,41 @@ const MovieDetailsPage = ({ movies }) => {
         }
     }
 
-
-
     const renderGenres = async () => {
         try {
-                const data = await getGenres();
-                if (movie && movie.genre_ids) {
-                    const movieGenres = movie.genre_ids.map((id) => {
-                        const genre = data.genres.find((g) => g.id === id);
-                        return genre ? genre.name : null;
-                    }).filter((name) => name !== null);
-                    setGenres(movieGenres);
-                }
-            } catch (error) {
-                console.error('Failed to fetch genres', error);
+            const data = await getGenres();
+            if (movie && movie.genre_ids) {
+                const movieGenres = movie.genre_ids.map((id) => {
+                    const genre = data.genres.find((g) => g.id === id);
+                    return genre ? genre.name : null;
+                }).filter((name) => name !== null);
+                setGenres(movieGenres);
             }
+        } catch (error) {
+            console.error('Failed to fetch genres', error);
+        }
     }
 
     useEffect(() => {
-        getImageUrl();
-        renderGenres()
+        if (movie) {
+            getImageUrl();
+            renderGenres();
+        }
     }, [movie]);
 
-    return ( 
-        <>  
-            <BackLink to={backLinkHref} children={'Back to home page'}/>
+    if (!movie) {
+        return <p>loading....</p>;
+    }
+
+    return (
+        <>
+            <BackLink to={backLinkHref} children={'Back to home page'} />
             <div>
                 {imageUrl ? (
-                    <img src={imageUrl} alt={movie.title || "Movie Poster"} />) : ( <p>Loading...</p>)}
+                    <img src={imageUrl} alt={movie.title || "Movie Poster"} />
+                ) : (
+                    <p>Loading...</p>
+                )}
                 <div>
                     <h2>{movie.title}</h2>
                     <div>User score:<MovieRatingStars rating={movie.vote_average} /></div>
@@ -84,22 +79,17 @@ const MovieDetailsPage = ({ movies }) => {
             </div>
             <ul>
                 <li>
-                    <Link to="cast">
-                        Cast
-                    </Link>
+                    <Link to="cast" state={{movieId, movie, from}}>Cast</Link>
                 </li>
                 <li>
-                    <Link to="reviews">
-                        Reviews
-                    </Link>
+                    <Link to="reviews" state={{movieId, movie, from}}>Reviews</Link>
                 </li>
             </ul>
             <Suspense fallback={<div>Loading subpage...</div>}>
-                <Outlet context={[movieId]}/>
+                <Outlet/>
             </Suspense>
-            
         </>
-     );
+    );
 }
  
 export default MovieDetailsPage;

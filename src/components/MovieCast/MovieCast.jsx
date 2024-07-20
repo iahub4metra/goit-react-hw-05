@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import getCast from "../../js/movieCastRequest";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 
 
 
 const MovieCast = () => {
-    const [movieId] = useOutletContext()
+    const location = useLocation()
+    const {movieId} = location.state || {}
+    //const [movieId] = useOutletContext()
     const [cast, setCast] = useState([])
     const addCast = async () => {
         try {
@@ -37,4 +39,3 @@ const MovieCast = () => {
 }
  
 export default MovieCast;
-
