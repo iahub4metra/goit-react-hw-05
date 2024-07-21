@@ -1,11 +1,12 @@
-const MoviePageForm = ({handleSubmit, inputRef}) => {
+import css from "./MoviePageForm.module.css"
+const MoviePageForm = ({ handleSubmit, inputRef }) => {
     return ( 
-        <>
-            <form onSubmit={handleSubmit}>
-                <input type="text" autoComplete="off" name="movieNameInput" ref={inputRef}/>
-                <button type="submit">Search</button>
+        <div className={css.formContainer}>
+            <form className={css.movieForm} onSubmit={handleSubmit}>
+                <input className={css.formInput} type="text" autoComplete="off" name="movieNameInput" ref={inputRef}/>
+                <button className={css.formButton} type="submit">Search</button>
             </form>
-        </>
+        </div>
      );
 }
  

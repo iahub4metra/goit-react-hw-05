@@ -4,6 +4,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { BackLink } from "../../components/BackLink/BackLink.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
+import css from "./MovieDetailsPage.module.css"
 
 const defaultImg = 'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg'
 
@@ -66,27 +67,27 @@ const MovieDetailsPage = () => {
     return (
         <>
             <BackLink to={backLinkHref} children={'Back to home page'} />
-            <div>
-                <img src={movie.poster_path ? imageUrl : defaultImg} alt={`${movie.title} Poster`} />
-                <div>
-                    <h2>{movie.title}</h2>
-                    <div>User score:<MovieRatingStars rating={movie.vote_average} /></div>
+            <div className={css.movieDetails}>
+                <img className={css.moviePoster} src={movie.poster_path ? imageUrl : defaultImg} alt={`${movie.title} Poster`} />
+                <div className={css.movieInfo}>
+                    <h2 className={css.movieTitle}>{movie.title}</h2>
+                    <div className={css.movieScore}>User score:<MovieRatingStars rating={movie.vote_average} /></div>
                     <h3>Overview</h3>
                     <p>{movie.overview}</p>
                     <h3>Genres</h3>
                     {showErrorMsg && <ErrorMessage errorType={errorType} />}
                     {genres.length > 0 && (genres.map((genre, index) => (
-                        <p key={index}>{genre}</p>
+                        <p className={css.genre} key={index}>{genre}</p>
                     )))}
                     
                 </div>
             </div>
-            <ul>
+            <ul className={css.subNav}>
                 <li>
-                    <Link to="cast" state={{movieId, movie, from}}>Cast</Link>
+                    <Link to="cast" state={{movieId, movie, from}} className={css.subNavLink}>Cast</Link>
                 </li>
                 <li>
-                    <Link to="reviews" state={{movieId, movie, from}}>Reviews</Link>
+                    <Link to="reviews" state={{movieId, movie, from}} className={css.subNavLink}>Reviews</Link>
                 </li>
             </ul>
             <Suspense fallback={<div>Loading subpage...</div>}>
