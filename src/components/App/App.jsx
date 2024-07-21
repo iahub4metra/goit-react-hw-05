@@ -11,12 +11,17 @@ const MovieReviews = lazy(() => import('../MovieReviews/MovieReviews.jsx'))
 
 const App = () => {
     const [movies, setMovies] = useState([]);
+    const [showErrorMsg, setShowErrorMsg] = useState(false)
+    const [errorType, setErrorType] = useState(null)
     const getMovies = async () => {
         try {
-            const data = await trendingRequest()
-            setMovies(data.results)
+            const response = await trendingRequest();
+            const data = response.data;
+            setMovies(data.results);
+            
         } catch (error) {
-            console.log(error);
+            setShowErrorMsg(true);
+            setErrorType('serverError');
         }
     }
 
@@ -31,7 +36,7 @@ const App = () => {
             <Navigation />
             <Suspense fallback={<p>Loading...</p>}>
                 <Routes>
-                    <Route path='/' element={<HomePage movies={movies}/>} />
+                    <Route path='/' element={<HomePage movies={movies} errorType={errorType} showErrorMsg={showErrorMsg} />} />
                     <Route path="/movies" element={<MoviesPage />} />
                     <Route path="/movies/:movieId" element={<MovieDetailsPage movies={movies}/>}>
                         <Route path="cast" element={<MovieCast/>} />

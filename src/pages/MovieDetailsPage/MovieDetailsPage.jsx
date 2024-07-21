@@ -3,8 +3,9 @@ import getGenres from "../../js/genresRequest.js";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { BackLink } from "../../components/BackLink/BackLink.jsx";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 
-
+const defaultImg = 'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg'
 
 const MovieRatingStars = lazy(() => import('../../components/MovieRatingStars/MovieRatingStars.jsx'))
 
@@ -17,17 +18,21 @@ const MovieDetailsPage = () => {
     const { movie, from } = location.state || {};
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('query');
-
+    const [baseUrl, setBaseUrl] = useState('')
     const backLinkHref = query ? `/movies?query=${query}` : from;
+    const [showErrorMsg, setShowErrorMsg] = useState(false)
+    const [errorType, setErrorType] = useState(null)
+    
     const getImageUrl = async () => {
         try {
             const data = await configuration();
             if (movie && movie.poster_path) {
+                setBaseUrl(`${data.images.secure_base_url}${data.images.profile_sizes[1]}`)
                 const url = `${data.images.secure_base_url}${data.images.poster_sizes[3]}${movie.poster_path}`;
                 setImageUrl(url);
             }
         } catch (error) {
-            console.error('Failed to fetch image configuration', error);
+            //setImageUrl(defaultImg)
         }
     }
 
@@ -42,7 +47,8 @@ const MovieDetailsPage = () => {
                 setGenres(movieGenres);
             }
         } catch (error) {
-            console.error('Failed to fetch genres', error);
+            setShowErrorMsg(true);
+            setErrorType('serverError');
         }
     }
 
@@ -61,20 +67,18 @@ const MovieDetailsPage = () => {
         <>
             <BackLink to={backLinkHref} children={'Back to home page'} />
             <div>
-                {imageUrl ? (
-                    <img src={imageUrl} alt={movie.title || "Movie Poster"} />
-                ) : (
-                    <p>Loading...</p>
-                )}
+                <img src={movie.poster_path ? imageUrl : defaultImg} alt={`${movie.title} Poster`} />
                 <div>
                     <h2>{movie.title}</h2>
                     <div>User score:<MovieRatingStars rating={movie.vote_average} /></div>
                     <h3>Overview</h3>
                     <p>{movie.overview}</p>
                     <h3>Genres</h3>
-                    {genres.map((genre, index) => (
+                    {showErrorMsg && <ErrorMessage errorType={errorType} />}
+                    {genres.length > 0 && (genres.map((genre, index) => (
                         <p key={index}>{genre}</p>
-                    ))}
+                    )))}
+                    
                 </div>
             </div>
             <ul>
@@ -86,7 +90,7 @@ const MovieDetailsPage = () => {
                 </li>
             </ul>
             <Suspense fallback={<div>Loading subpage...</div>}>
-                <Outlet/>
+                <Outlet context={baseUrl}/>
             </Suspense>
         </>
     );

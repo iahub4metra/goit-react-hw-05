@@ -10,7 +10,7 @@ const options = {
 
 const trendingRequest = async () => {
     const response = await axios.get('/week?language=en-US&per_page=10', options);
-    return response.data
+    return response
 }
 
 export default trendingRequest

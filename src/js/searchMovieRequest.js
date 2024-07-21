@@ -8,7 +8,7 @@ const options = {
 
 const getMovieByName = async (movieName) => {
     const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${movieName}&page=1`, options);
-    return response.data
+    return response
 }
 
 export default getMovieByName
