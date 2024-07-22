@@ -11,7 +11,7 @@ const defaultImg = 'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/
 const MovieRatingStars = lazy(() => import('../../components/MovieRatingStars/MovieRatingStars.jsx'))
 
 
-const MovieDetailsPage = () => {
+const MovieDetailsPage = ({baseUrl}) => {
     const location = useLocation()
     const {movieId} = useParams()
     const [imageUrl, setImageUrl] = useState('')
@@ -19,23 +19,9 @@ const MovieDetailsPage = () => {
     const { movie, from } = location.state || {};
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('query');
-    const [baseUrl, setBaseUrl] = useState('')
     const backLinkHref = query ? `/movies?query=${query}` : from;
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     const [errorType, setErrorType] = useState(null)
-    
-    const getImageUrl = async () => {
-        try {
-            const data = await configuration();
-            if (movie && movie.poster_path) {
-                setBaseUrl(`${data.images.secure_base_url}${data.images.profile_sizes[1]}`)
-                const url = `${data.images.secure_base_url}${data.images.poster_sizes[3]}${movie.poster_path}`;
-                setImageUrl(url);
-            }
-        } catch (error) {
-            //setImageUrl(defaultImg)
-        }
-    }
 
     const renderGenres = async () => {
         try {
@@ -55,7 +41,8 @@ const MovieDetailsPage = () => {
 
     useEffect(() => {
         if (movie) {
-            getImageUrl();
+            const url = `${baseUrl}${movie.poster_path}`;
+            setImageUrl(url);
             renderGenres();
         }
     }, [movie]);
@@ -91,7 +78,7 @@ const MovieDetailsPage = () => {
                 </li>
             </ul>
             <Suspense fallback={<div>Loading subpage...</div>}>
-                <Outlet context={baseUrl}/>
+                <Outlet/>
             </Suspense>
         </section>
     );

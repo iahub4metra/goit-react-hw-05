@@ -54,7 +54,7 @@
 
 .movieList {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 20px;
     justify-content: center;
     padding: 20px;
@@ -67,6 +67,8 @@
     padding: 15px;
     text-align: center;
     transition: transform 0.3s;
+    width: 140px;
+    /* Встановлюємо ширину відповідно до постера */
 }
 
 .movieItem:hover {
@@ -79,9 +81,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    /* Забезпечуємо, що посилання займає весь розмір елементу списку */
 }
 
 .moviePoster {
+    width: 120px;
+    /* Встановлюємо ширину постера */
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -91,6 +97,37 @@
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
+    width: 120px;
+    /* Встановлюємо ширину заголовку відповідно до постера */
+}
+
+@media (max-width: 768px) {
+    .movieItem {
+        width: 120px;
+        /* Зменшуємо ширину для середніх екранів */
+    }
+
+    .movieTitle {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 375px) {
+    .movieItem {
+        width: 100px;
+        /* Зменшуємо ширину для маленьких екранів */
+    }
+
+    .moviePoster {
+        width: 100px;
+        /* Зменшуємо ширину постера для маленьких екранів */
+    }
+
+    .movieTitle {
+        font-size: 12px;
+        width: 100px;
+        /* Зменшуємо ширину заголовку для маленьких екранів */
+    }
 }
 
 @media (max-width: 768px) {

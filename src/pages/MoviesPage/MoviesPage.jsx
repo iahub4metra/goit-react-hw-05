@@ -17,7 +17,7 @@ const notify = () => {
             }
     })}
 
-const MoviesPage = ({ }) => {
+const MoviesPage = ({ baseUrl}) => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [moviesByName, setMoviesByName] = useState([])
     const [showErrorMsg, setShowErrorMsg] = useState(false)
@@ -73,7 +73,7 @@ const MoviesPage = ({ }) => {
         <>
             <MoviePageForm handleSubmit={handleSubmit} inputRef={inputRef}/>
             {showErrorMsg && <ErrorMessage errorType={errorType} />}
-            {moviesByName.length > 0 && <MovieList movies={moviesByName} />}
+            {moviesByName.length > 0 && <MovieList movies={moviesByName} baseUrl={baseUrl}/>}
             <Toaster/>
         </>
      );

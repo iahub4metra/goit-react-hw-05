@@ -5,14 +5,14 @@ const MovieList = lazy(()=>import('../../components/MovieList/MovieList.jsx'))
 
 
 
-const HomePage = ({movies, errorType, showErrorMsg}) => {
+const HomePage = ({movies, errorType, showErrorMsg, baseUrl}) => {
 
     return ( 
         <section>  
             <h2 className={css.titleHomePage}>Trending Movies</h2>
             <Suspense fallback={<p>loading...</p>}>
                 {showErrorMsg && <ErrorMessage errorType={errorType} />}
-                {movies.length > 0 && <MovieList movies={movies} />}
+                {movies.length > 0 && <MovieList movies={movies} baseUrl={baseUrl} />}
             </Suspense>
         </section>
      );
