@@ -65,7 +65,7 @@ const MovieDetailsPage = () => {
     }
 
     return (
-        <>
+        <section className={css.movieDetailsSection}>
             <BackLink to={backLinkHref} children={'Back to home page'} />
             <div className={css.movieDetails}>
                 <img className={css.moviePoster} src={movie.poster_path ? imageUrl : defaultImg} alt={`${movie.title} Poster`} />
@@ -93,7 +93,7 @@ const MovieDetailsPage = () => {
             <Suspense fallback={<div>Loading subpage...</div>}>
                 <Outlet context={baseUrl}/>
             </Suspense>
-        </>
+        </section>
     );
 }
  
