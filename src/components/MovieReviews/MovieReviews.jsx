@@ -3,6 +3,10 @@ import getReviews from "../../js/movieReviewsRequest";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import css from "./MovieReviews.module.css"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+import "./swiperCustom.css"
+import { Navigation, Pagination } from 'swiper/modules';
 
 const MovieReviews = () => {
     const location = useLocation()
@@ -29,14 +33,23 @@ const MovieReviews = () => {
             <div className={css.reviewsContainer}>
                 {showErrorMsg && <ErrorMessage errorType={errorType} />}
                 {reviews.length > 0 &&
-                    (<ul className={css.reviewsList}>
-                    {reviews.map((review) => (
-                        <li className={css.reviewsItem} key={review.id}>
-                            <h3 className={css.reviewsAuthor}>{review.author}</h3>
-                            <p className={css.reviewsContent}>{review.content}</p>
-                        </li>
+                (<Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+                    className={css.reviewsList}
+                >
+                {reviews.map((review) => (
+                        <SwiperSlide key={review.id}>
+                            <li className={css.reviewsItem}>
+                                <h3 className={css.reviewsAuthor}>{review.author}</h3>
+                                <p className={css.reviewsContent}>{review.content}</p>
+                            </li>
+                        </SwiperSlide>
                     ))}
-                    </ul>)
+                    </Swiper>)
                     }
                 {(!reviews.length > 0 && showErrorMsg === false) && (<p>There are no reviews on this movie yet</p>)}
             </div>
