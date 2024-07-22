@@ -1,15 +1,19 @@
 import configuration from "../../js/imageDetailRequest.js"
 import getGenres from "../../js/genresRequest.js";
 import { Suspense, lazy, useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BackLink } from "../../components/BackLink/BackLink.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 import css from "./MovieDetailsPage.module.css"
+import clsx from "clsx";
 
 const defaultImg = 'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg'
 
 const MovieRatingStars = lazy(() => import('../../components/MovieRatingStars/MovieRatingStars.jsx'))
 
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.subNavLink, isActive && css.active);
+};
 
 const MovieDetailsPage = ({baseUrl}) => {
     const location = useLocation()
@@ -59,24 +63,24 @@ const MovieDetailsPage = ({baseUrl}) => {
                 <div className={css.movieInfo}>
                     <h2 className={css.movieTitle}>{movie.title}</h2>
                     <div className={css.movieScore}>User score:<MovieRatingStars rating={movie.vote_average} /></div>
-                    <h3>Overview</h3>
-                    <p>{movie.overview}</p>
-                    <h3>Genres</h3>
-                    {showErrorMsg && <ErrorMessage errorType={errorType} />}
+                    <h3 className={css.genreTitle}>Genres: {showErrorMsg && <ErrorMessage errorType={errorType} />}
                     {genres.length > 0 && (genres.map((genre, index) => (
-                        <p className={css.genre} key={index}>{genre}</p>
-                    )))}
+                        <span className={css.genre} key={index}>{genre}</span>
+                    )))}</h3>
                     
+                    <h3 className={css.overviewTitle}>Overview</h3>
+                    <p className={css.overviewText}>{movie.overview}</p>
+                    <ul className={css.subNav}>
+                        <li>
+                            <NavLink to="cast" state={{movieId, movie, from}} className={buildLinkClass}>Cast</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="reviews" state={{movieId, movie, from}} className={buildLinkClass}>Reviews</NavLink>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <ul className={css.subNav}>
-                <li>
-                    <Link to="cast" state={{movieId, movie, from}} className={css.subNavLink}>Cast</Link>
-                </li>
-                <li>
-                    <Link to="reviews" state={{movieId, movie, from}} className={css.subNavLink}>Reviews</Link>
-                </li>
-            </ul>
+            
             <Suspense fallback={<div>Loading subpage...</div>}>
                 <Outlet/>
             </Suspense>

@@ -9,42 +9,40 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: #fff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .formInput {
     flex-grow: 1;
     border: none;
     outline: none;
-    padding: 10px 15px;
-    border-radius: 30px 0 0 30px;
-    font-size: 16px;
+    padding: 13px 22px;
+    padding-right: 54px;
+    border-radius: 20px;
+    font-size: 24px;
     color: #333;
-    background: #f0f0f0;
-    transition: background 0.3s ease;
+    background: #F5F5F5;
+    position: relative;
 }
 
 .formInput::placeholder {
-    color: #aaa;
+    color: #DAD2C1;
+    text-transform: uppercase;
 }
 
 .formButton {
     border: none;
     outline: none;
-    padding: 10px 20px;
-    border-radius: 0 30px 30px 0;
-    font-size: 16px;
-    color: #fff;
-    background: #007BFF;
+    background-color: transparent;
+    padding: 0;
     cursor: pointer;
-    transition: background 0.3s ease;
+    position: absolute;
+    top: 100px;
+    left: 58%;
 }
 
-.formButton:hover {
-    background: #0056b3;
+.submitIcon {
+    width: 40px;
+    height: 40px;
 }
 
 @media (max-width: 768px) {

@@ -7,8 +7,9 @@
     text-decoration: none;
     font-weight: 500;
     text-transform: uppercase;
+    margin-left: 30px;
 }
 
 .link:hover {
-    color: orangered;
+    color: #B5A688;
 }

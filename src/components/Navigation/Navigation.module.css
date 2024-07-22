@@ -1,5 +1,5 @@
 .navContainer {
-    background-color: rgb(1, 1, 64);
+    background-color: #BBAF97;
     padding: 16px 20px;
     position: sticky;
     top: 0;
@@ -11,28 +11,36 @@
 .navContainer>nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 35px;
 }
 
 .navLink {
     font-size: 16px;
-    color: #f0f0f0;
-    padding: 8px 12px;
+    color: #000000;
+    padding: 5px 10px;
     text-decoration: none;
     border-radius: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: Kameron;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .navLink:hover {
     background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
 }
 
 .navLink.active {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    border-radius: 8px;
+    background-color: rgba(217, 217, 217, 0.60);
     border: 1px solid #f0f0f0;
     border-radius: 10px;
+    background: linear-gradient(180deg, #5E5846 0%, #C4B992 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 @media (max-width: 768px) {

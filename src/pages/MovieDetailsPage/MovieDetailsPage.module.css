@@ -1,35 +1,80 @@
 .movieDetails {
     display: flex;
-    gap: 20px;
+    gap: 38px;
     margin: 20px;
+    padding-left: 70px;
 }
 
 .moviePoster {
-    width: 200px;
+    width: 270px;
+    height: 356px;
     border-radius: 10px;
 }
 
 .movieInfo {
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .movieTitle {
-    font-size: 24px;
-    font-weight: bold;
+    color: #000;
+    font-family: Kameron;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
     margin-bottom: 10px;
 }
 
 .movieScore {
-    font-size: 16px;
     margin-bottom: 20px;
+    color: #000;
+    font-family: Kameron;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.genreTitle {
+    color: #000;
+    font-family: Kameron;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 18px;
 }
 
 .genre {
     display: inline-block;
     margin-right: 10px;
-    background-color: #eee;
+    border-radius: 20px;
+    background: #D9D9D9;
     padding: 5px 10px;
-    border-radius: 5px;
+}
+
+.overviewText {
+    border-radius: 20px;
+    opacity: 0.6;
+    background-color: #D9D9D9;
+    padding: 6px 8px;
+    color: #000;
+    font-family: Kameron;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 5px;
+}
+
+.overviewTitle {
+    color: #000;
+    font-family: Kameron;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 4px;
 }
 
 .subNav {
@@ -38,17 +83,35 @@
     padding: 0;
     margin-top: 20px;
     gap: 20px;
+    justify-content: center;
 }
 
 .subNavLink {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 16px;
+    color: #000;
+    font-family: Kameron;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
     transition: color 0.3s ease;
+    position: relative;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 32px;
 }
 
 .subNavLink:hover {
-    color: #0056b3;
+    color: #B5A688;
+}
+
+.subNavLink.active {
+    border-bottom: 3px solid;
+    border-image: linear-gradient(270deg, #2F2C26 0%, #B5A688 100%);
+    border-image-slice: 1;
+    background: linear-gradient(180deg, #B5A688 0%, #2F2C26 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 @media (max-width: 768px) {

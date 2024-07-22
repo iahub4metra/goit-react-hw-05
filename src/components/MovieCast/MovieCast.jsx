@@ -60,8 +60,8 @@ const MovieCast = ({baseUrlProfile}) => {
                             }}
                 >
                         {cast.map((actor) => (
-                        <SwiperSlide>
-                            <li key={actor.id} className={css.castItem}>
+                        <SwiperSlide key={actor.id}>
+                            <li className={css.castItem}>
                                 <img className={css.actorImage} src={actor.profile_path ? `${baseUrlProfile}${actor.profile_path}` : defaultImg} alt={actor.name} width={185}/>
                                 <h3 className={css.actorName}>{actor.name}</h3>
                                 <p className={css.actorCharacter}>{actor.character}</p>
