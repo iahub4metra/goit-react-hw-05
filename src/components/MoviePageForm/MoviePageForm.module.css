@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
 }
 
 .formInput {
@@ -21,7 +22,6 @@
     font-size: 18px;
     color: #333;
     background: #F5F5F5;
-    position: relative;
 }
 
 .formInput::placeholder {
@@ -36,13 +36,14 @@
     padding: 0;
     cursor: pointer;
     position: absolute;
-    right: 77px;
+    right: 11px;
     width: 25px;
 }
 
 .submitIcon {
     width: 25px;
     height: 25px;
+    stroke: #333;
 }
 
 @media screen and (min-width: 768px) {
@@ -50,9 +51,6 @@
         font-size: 20px;
     }
 
-    .formButton {
-        right: 34%;
-    }
 }
 
 @media screen and (min-width: 1024px) {
@@ -63,9 +61,6 @@
     }
 
     .formButton {
-        top: 97px;
-        right: 0;
-        left: 61%;
         width: 40px;
     }
 
