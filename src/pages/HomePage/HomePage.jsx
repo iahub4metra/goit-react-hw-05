@@ -24,7 +24,6 @@ const HomePage = ({baseUrl}) => {
         } catch (error) {
             setShowErrorMsg(true);
             setErrorType('serverError');
-            console.log(error);
         } finally {
             setShowLoader(false)
         }
