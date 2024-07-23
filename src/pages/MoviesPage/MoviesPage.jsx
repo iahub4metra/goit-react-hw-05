@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import MoviePageForm from "../../components/MoviePageForm/MoviePageForm";
 import toast, {Toaster} from "react-hot-toast";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-
+import Loader from "../../components/Loader/Loader";
 
 
 
@@ -17,7 +17,8 @@ const notify = () => {
             }
     })}
 
-const MoviesPage = ({ baseUrl}) => {
+const MoviesPage = ({ baseUrl }) => {
+    const [showLoader, setShowLoader] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const [moviesByName, setMoviesByName] = useState([])
     const [showErrorMsg, setShowErrorMsg] = useState(false)
@@ -25,6 +26,7 @@ const MoviesPage = ({ baseUrl}) => {
     const inputRef = useRef();
     const findMovies = async (movieName) => {
         try {
+            setShowLoader(true)
             const response = await getMovieByName(movieName);
             if (response.status === 200) {
                 const data = response.data;
@@ -39,6 +41,8 @@ const MoviesPage = ({ baseUrl}) => {
         } catch (error) {
             setShowErrorMsg(true);
             setErrorType('serverError');
+        } finally {
+            setShowLoader(false)
         }
     }
 
@@ -73,6 +77,7 @@ const MoviesPage = ({ baseUrl}) => {
         <>
             <MoviePageForm handleSubmit={handleSubmit} inputRef={inputRef}/>
             {showErrorMsg && <ErrorMessage errorType={errorType} />}
+            {showLoader && <Loader/>}
             {moviesByName.length > 0 && <MovieList movies={moviesByName} baseUrl={baseUrl}/>}
             <Toaster/>
         </>

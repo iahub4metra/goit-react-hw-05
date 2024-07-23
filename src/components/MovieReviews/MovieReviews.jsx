@@ -1,4 +1,4 @@
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext, useParams } from "react-router-dom";
 import getReviews from "../../js/movieReviewsRequest";
 import { useEffect, useState } from "react";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
@@ -10,8 +10,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { IoArrowForwardOutline, IoArrowBackOutline } from "react-icons/io5";
 
 const MovieReviews = () => {
-    const location = useLocation()
-    const { movieId } = location.state || {}
+    const {movieId} = useParams()
     const [reviews, setReviews] = useState([]);
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     const [errorType, setErrorType] = useState(null)

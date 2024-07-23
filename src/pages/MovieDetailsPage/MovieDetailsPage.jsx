@@ -1,6 +1,6 @@
 import configuration from "../../js/imageDetailRequest.js"
 import getGenres from "../../js/genresRequest.js";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState, useRef } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { BackLink } from "../../components/BackLink/BackLink.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
@@ -21,9 +21,7 @@ const MovieDetailsPage = ({baseUrl}) => {
     const [imageUrl, setImageUrl] = useState('')
     const [genres, setGenres] = useState([])
     const { movie, from } = location.state || {};
-    const searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get('query');
-    const backLinkHref = query ? `/movies?query=${query}` : from;
+    const backLinkHref = useRef(from || '/')
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     const [errorType, setErrorType] = useState(null)
 
@@ -49,7 +47,7 @@ const MovieDetailsPage = ({baseUrl}) => {
             setImageUrl(url);
             renderGenres();
         }
-    }, [movie]);
+    }, [movieId]);
 
     if (!movie) {
         return <p>loading....</p>;
@@ -57,7 +55,7 @@ const MovieDetailsPage = ({baseUrl}) => {
 
     return (
         <section className={css.movieDetailsSection}>
-            <BackLink to={backLinkHref} children={'Back to home page'} />
+            <BackLink to={backLinkHref.current} children={'Go back'} />
             <div className={css.movieDetails}>
                 <img className={css.moviePoster} src={movie.poster_path ? imageUrl : defaultImg} alt={`${movie.title} Poster`} />
                 <div className={css.movieInfo}>
