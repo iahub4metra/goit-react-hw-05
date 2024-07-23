@@ -37,7 +37,7 @@ const MovieReviews = () => {
                 <>
                     <Swiper
                         modules={[Navigation, Pagination]}
-                        spaceBetween={50}
+                        spaceBetween={10}
                         slidesPerView={1}
                         breakpoints={{
                             768: {
@@ -45,6 +45,7 @@ const MovieReviews = () => {
                             },
                             1024: {
                                 slidesPerView: 2,
+                                spaceBetween: 50
                             }
                         }}
                         navigation={{

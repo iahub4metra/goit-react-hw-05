@@ -15,10 +15,10 @@
     flex-grow: 1;
     border: none;
     outline: none;
-    padding: 13px 22px;
-    padding-right: 54px;
+    padding: 10px 16px;
+    padding-right: 37px;
     border-radius: 20px;
-    font-size: 24px;
+    font-size: 18px;
     color: #333;
     background: #F5F5F5;
     position: relative;
@@ -36,23 +36,41 @@
     padding: 0;
     cursor: pointer;
     position: absolute;
-    top: 100px;
-    left: 58%;
+    right: 77px;
+    width: 25px;
 }
 
 .submitIcon {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
 }
 
-@media (max-width: 768px) {
-    .formContainer {
-        flex-direction: column;
-        align-items: center;
+@media screen and (min-width: 768px) {
+    .formInput {
+        font-size: 20px;
     }
 
-    .searchInput {
-        margin-bottom: 10px;
-        margin-right: 0;
+    .formButton {
+        right: 34%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .formInput {
+        font-size: 24px;
+        padding: 13px 22px;
+        padding-right: 54px;
+    }
+
+    .formButton {
+        top: 97px;
+        right: 0;
+        left: 61%;
+        width: 40px;
+    }
+
+    .submitIcon {
+        width: 40px;
+        height: 40px;
     }
 }

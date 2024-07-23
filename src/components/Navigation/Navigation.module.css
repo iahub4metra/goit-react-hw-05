@@ -1,6 +1,6 @@
 .navContainer {
     background-color: #BBAF97;
-    padding: 16px 20px;
+    padding: 10px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -11,7 +11,8 @@
 .navContainer>nav {
     display: flex;
     align-items: center;
-    gap: 35px;
+    justify-content: end;
+    gap: 10px;
 }
 
 .navLink {
@@ -22,7 +23,7 @@
     border-radius: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
     font-family: Kameron;
-    font-size: 24px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -43,21 +44,22 @@
     -webkit-text-fill-color: transparent;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .navContainer>nav {
-        justify-content: center;
-        gap: 10px;
+        gap: 15px;
     }
 
     .navLink {
-        font-size: 12px;
-        padding: 6px 4px;
+        font-size: 20px;
     }
 }
 
-@media (max-width: 375px) {
+@media screen and (min-width:1024px) {
+    .navContainer {
+        padding: 16px 20px;
+    }
+
     .navLink {
-        font-size: 10px;
-        padding: 4px 2px;
+        font-size: 24px;
     }
 }

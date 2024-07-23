@@ -7,28 +7,27 @@
 }
 
 .castItem {
-    width: 150px;
+    width: 100px;
     text-align: center;
 }
 
 .actorImage {
     width: 100%;
     border-radius: 10px;
-    height: 225px;
 }
 
 .actorName {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     margin-top: 10px;
 }
 
 .actorCharacter {
-    font-size: 14px;
+    font-size: 10px;
     color: #555;
 }
 
-@media (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .castItem {
         width: 120px;
     }
@@ -42,16 +41,16 @@
     }
 }
 
-@media (max-width: 375px) {
+@media screen and (min-width: 1024px) {
     .castItem {
-        width: 100px;
+        width: 150px;
     }
 
     .actorName {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .actorCharacter {
-        font-size: 10px;
+        font-size: 14px;
     }
 }
